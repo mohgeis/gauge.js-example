@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--[if lt IE 9]><script type="text/javascript" src="assets/excanvas.compiled.js"></script><![endif]-->
+</head>
+
+<body>
+
+<table style="width:400">
+  <tr>
+    <td colspan="3">
+     <canvas width=400 height=200 id="gauge"></canvas>
+     <div id="preview-textfield"></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <canvas width=100 height=50 id="gauge2"></canvas>
+    <div id="preview-textfield"></div>
+    </td>
+    <td>
+    <canvas width=100 height=50 id="gauge3"></canvas>
+    <div id="preview-textfield"></div>
+    </td>
+    <td>
+    <canvas width=100 height=50 id="gauge4"></canvas>
+    <div id="preview-textfield"></div>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript" src="http://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+
+<script>
+
+var opts = {
+  angle: 0.0, // The span of the gauge arc
+  lineWidth: 0.3, // The line thickness
+  radiusScale: 1, // Relative radius
+  staticZones: [
+   {strokeStyle: "#F03E3E", min: 0, max: 20}, // Red from 100 to 130
+   {strokeStyle: "#FFA500", min: 20, max: 40}, // orange
+   {strokeStyle: "#FFDD00", min: 40, max: 60}, // Yellow
+   {strokeStyle: "#32CD32", min: 60, max: 80}, // Yellow
+   {strokeStyle: "#006400", min: 80, max: 100}  // Green
+    ],
+  pointer: {
+    length: 0.6, // // Relative to gauge radius
+    strokeWidth: 0.035, // The thickness
+    color: '#000000' // Fill color
+  },
+  limitMax: true,     // If false, max value increases automatically if value > maxValue
+  limitMin: true,     // If true, the min value of the gauge will be fixed
+  colorStart: '#6F6EA0',   // Colors
+  colorStop: '#C0C0DB',    // just experiment with them
+  strokeColor: '#EEEEEE',  // to see which ones work best for you
+  generateGradient: true,
+  highDpiSupport: true,     // High resolution support
+ 
+};
+ 
+var target = document.getElementById('gauge'); // your canvas element
+var selectGauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+    selectGauge.maxValue = 100;
+    selectGauge.set(0);
+ 
+var target2 = document.getElementById('gauge2'); // your canvas element
+var selectGauge2 = new Gauge(target2).setOptions(opts); // create sexy gauge!
+    selectGauge2.maxValue = 100;
+    selectGauge2.set(50);
+ 
+var target3 = document.getElementById('gauge3'); // your canvas element
+var selectGauge3 = new Gauge(target3).setOptions(opts); // create sexy gauge!
+    selectGauge3.maxValue = 100;
+    selectGauge3.set(50);
+
+var target4 = document.getElementById('gauge4'); // your canvas element
+var selectGauge4 = new Gauge(target4).setOptions(opts); // create sexy gauge!
+    selectGauge4.maxValue = 100;
+    selectGauge4.set(50);
+ 
+var i = 1;                     //  set your counter to 1
+function myLoop () {           //  create a loop function
+   setTimeout(function () {    //  call a 3s setTimeout when the loop is called
+      i++; 
+      selectGauge.set(i);
+      if ( (i % 4) === 0){
+       var rand2 = Math.floor(Math.random() * 101);
+       selectGauge2.set(rand2);
+      }
+      if ( (i % 5) === 0){
+       var rand3 = Math.floor(Math.random() * 101);
+       selectGauge3.set(rand3);
+      }
+      if ( (i % 7) === 0){
+       var rand4 = Math.floor(Math.random() * 5) * 20 + 10;
+       selectGauge4.set(rand4);
+      }
+      if (i < 100) { 
+         myLoop(); 
+      } else if (i===100){
+         selectGauge2.set(99);
+         selectGauge3.set(100);
+         selectGauge4.set(100);
+      }
+   }, 500)
+}
+ 
+myLoop();
+
+
+</script>
+
+</body>
+</html>
